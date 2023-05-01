@@ -12,14 +12,14 @@ If there was no user with the given email and the roles exist the user is create
      {
        "email": "<email>",
        "password": "<password>",
-       "roles": ["<role name 1>", ..., "<role name n>"]
+       "roles": ["<role name 1>", "...", "<role name n>"]
      }
    #+end_src
  - *response*:
-   + 201, {"message": "User created OK."}
-   + 409, {"message": "User exists with given email."}
-   + 400, {"message": "Couldn't find given roles."}
-   + 500, {"message": "<some internal error, should not happend but UI should manage>"}
+   + 201, ={"message": "User created OK."}=
+   + 409, ={"message": "User exists with given email."}=
+   + 400, ={"message": "Couldn't find given roles."}=
+   + 500, ={"message": "<some internal error, should not happend but UI should manage>"}=
 
 ** login
 Given a registered and approved email and password, retrieve an access token and the user roles.
@@ -36,8 +36,8 @@ Given a registered and approved email and password, retrieve an access token and
    #+begin_src json
      {
        "email": "<email>",
-       "roles": ["<role name 1>", ..., "<role name n>"]
-       "accessToken": "<access token>",
+       "roles": ["<role name 1>", "...", "<role name n>"]
+       "accessToken": "<access token>"
      }
    #+end_src
 
@@ -55,17 +55,17 @@ Only users with "admin" role are authorized on this whole API.
      {
        "users": [
          {
-         "id" : <id>
+         "id" : "<id>"
          "email": "<email 1>",
-         "roles": ["<r1>", ..., "<rn>"],
-         "approved": <approved?>
+         "roles": ["<r1>", "...", "<rn>"],
+         "approved": "<approved?>"
          },
-         ...,
+         "...",
          {
-         "id" : <id>
+         "id" : "<id>"
          "email": "<email n>",
-         "roles": ["<r1>", ..., "<rn>"],
-         "approved": <approved?>
+         "roles": ["<r1>", "...", "<rn>"],
+         "approved": "<approved?>"
          }
        ]
      }
@@ -76,11 +76,11 @@ Only users with "admin" role are authorized on this whole API.
  - *payload*:
    #+begin_src json
      {
-       "id": <id>,
-       "approve": <approve?>
+       "id": "<id>",
+       "approve": "<approve?>"
      }
    #+end_src
  - *response*:
-   + 200, {"message": "<User approved|rejected>"}
-   + 404, {"message": "User not found."}
+   + 200, ={"message": "<User approved|rejected>"}=
+   + 404, ={"message": "User not found."}=
 
