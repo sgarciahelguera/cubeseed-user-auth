@@ -1,0 +1,86 @@
+#+TITLE: Authentication and user management API
+
+* auth
+
+** signup
+Create new user with given email, password and roles.
+If there was no user with the given email and the roles exist the user is created as waiting for approval.
+
+ - *POST api/auth/signup*
+ - *payload*:
+   #+begin_src json
+     {
+       "email": "<email>",
+       "password": "<password>",
+       "roles": ["<role name 1>", ..., "<role name n>"]
+     }
+   #+end_src
+ - *response*:
+   + 201, {"message": "User created OK."}
+   + 409, {"message": "User exists with given email."}
+   + 400, {"message": "Couldn't find given roles."}
+   + 500, {"message": "<some internal error, should not happend but UI should manage>"}
+
+** login
+Given a registered and approved email and password, retrieve an access token and the user roles.
+
+ - *POST api/auth/login*
+ - *payload*:
+   #+begin_src json
+     {
+       "email": "<email>",
+       "password": "<password>",
+     }
+   #+end_src
+ - *response*:
+   #+begin_src json
+     {
+       "email": "<email>",
+       "roles": ["<role name 1>", ..., "<role name n>"]
+       "accessToken": "<access token>",
+     }
+   #+end_src
+
+
+
+* user
+User CRUD API.
+Only users with "admin" role are authorized on this whole API.
+(NOTE: At some point may be interesting to have some other information on a user, like a profile. A profile if exists is the "user" part that a normal user can edit. This is only for admin.).
+
+** List all users
+ - *GET api/users*
+ - *response* :
+   #+begin_src json
+     {
+       "users": [
+         {
+         "id" : <id>
+         "email": "<email 1>",
+         "roles": ["<r1>", ..., "<rn>"],
+         "approved": <approved?>
+         },
+         ...,
+         {
+         "id" : <id>
+         "email": "<email n>",
+         "roles": ["<r1>", ..., "<rn>"],
+         "approved": <approved?>
+         }
+       ]
+     }
+   #+end_src
+   
+** Approve/reject user
+ - *PUT api/users/{id}*
+ - *payload*:
+   #+begin_src json
+     {
+       "id": <id>,
+       "approve": <approve?>
+     }
+   #+end_src
+ - *response*:
+   + 200, {"message": "<User approved|rejected>"}
+   + 404, {"message": "User not found."}
+
