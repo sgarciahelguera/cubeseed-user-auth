@@ -18,7 +18,7 @@ If there was no user with the given email and the roles exist the user is create
  - *response*:
    + 201, ={"message": "User created OK."}=
    + 409, ={"message": "User exists with given email."}=
-   + 400, ={"message": "Couldn't find given roles."}=
+   + 400, ={"message": "Invalid roles."}=
    + 500, ={"message": "<some internal error, should not happend but UI should manage>"}=
 
 ** login
@@ -50,6 +50,10 @@ Only users with "admin" role are authorized on this whole API.
 
 ** List all users
  - *GET api/users*
+ - *arguments:*
+   + (optional) *approved*: boolean
+     filter either approved or not approved users
+   + (optional) *email*: find a user by email
  - *response* :
    #+begin_src json
      {
@@ -76,7 +80,6 @@ Only users with "admin" role are authorized on this whole API.
  - *payload*:
    #+begin_src json
      {
-       "id": "<id>",
        "approve": "<approve?>"
      }
    #+end_src
