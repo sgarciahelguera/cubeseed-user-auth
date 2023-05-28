@@ -1,0 +1,4 @@
+POSTGRES_PASSWORD=cubeseedsecret
+POSTGRES_USER=cubeseed
+POSTGRES_DB=cubeseedapi
+
