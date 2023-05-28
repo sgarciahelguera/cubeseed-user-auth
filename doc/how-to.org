@@ -1,0 +1,71 @@
+* HowTo
+** If you have docker installed and know how to use it from the command line jump to [[*I know docker][I know docker]]
+** Install docker
+ - [[https://docs.docker.com/desktop/install/windows-install/][Windows]]
+ - [[https://docs.docker.com/desktop/install/mac-install/][Mac]]
+ - [[https://docs.docker.com/engine/install/ubuntu/][Ubuntu]]
+
+** Follow [[https://docs.docker.com/get-started/run-docker-hub-images/][This]]
+
+** Run the database container
+Look for the =postgres= image: [[https://hub.docker.com/_/postgres]].
+Run with the following settings:
+ - Name: whatever
+ - Host Port: =5432=
+ - Container Port: =5432=
+ - Environment:
+   + =POSTGRES_PASSWORD=cubeseedsecret=
+   + =POSTGRES_USER=cubeseed=
+   + =POSTGRES_DB=cubeseedapi=
+
+** Run our container
+Look for the =sebastiangh/cubeseed-user-auth= image: [[https://hub.docker.com/r/sebastiangh/cubeseed-user-auth]]
+Run with the following settings:
+ - Name: whatever
+ - Host Port: =3000=
+ - Container Port: =3000=
+ - Environment:
+   + =PORT=3000=
+   + =SECRET_KEY=superSecret=
+   + =DB_USER=cubeseed=
+   + =DB_PASSWORD=cubeseedsecret=
+   + =DB_NAME=cubeseedapi=
+   + If you use Linux =DB_HOST=172.17.0.1=
+   + If you use Mac or Windows =DB_HOST=gateway.docker.internal=
+
+** I know docker
+Get environment files:
+ - [[https://github.com/sgarciahelguera/cubeseed-user-auth/blob/main/docker/postgresEnvironment.txt][postgresEnvironment.txt]]
+ - [[https://github.com/sgarciahelguera/cubeseed-user-auth/blob/main/docker/environment.txt][environment.txt]]
+
+Check them out, specially the second one, if you are on Mac or Windows you need to change the =DB_HOST= variable.
+
+For linux it should be:
+#+begin_src bash
+PORT=3000
+SECRET_KEY=superSecret
+DB_HOST=172.17.0.1
+DB_USER=cubeseed
+DB_PASSWORD=cubeseedsecret
+DB_NAME=cubeseedapi
+#+end_src
+
+For Mac or Windows it should be:
+#+begin_src bash
+PORT=3000
+SECRET_KEY=superSecret
+DB_HOST=gateway.docker.internal
+DB_USER=cubeseed
+DB_PASSWORD=cubeseedsecret
+DB_NAME=cubeseedapi
+#+end_src
+
+*** Run postgres container as follows:
+#+begin_src bash
+  docker run --name my-database --env-file postgresEnvironment.txt -p 5432:5432 -d postgres
+#+end_src
+
+*** Then run our container as follows:
+#+begin_src bash
+  docker run --name cubeseed -it -dp 3000:3000 --env-file environment.txt cubeseed-user-auth
+#+end_src
