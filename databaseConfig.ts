@@ -1,7 +1,7 @@
 import { Sequelize, Dialect } from 'sequelize'
 
 const port: string = process.env.PORT;
-const dbName: string = 'api';
+const dbName: string = process.env.DB_NAME;
 const dbUser: string = process.env.DB_USER;
 const dbHost: string = process.env.DB_HOST;
 const dbDriver: Dialect = 'postgres';
