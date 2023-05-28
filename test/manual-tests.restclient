@@ -1,6 +1,6 @@
  -*- restclient -*-
 
-:ip = 172.17.0.3
+:ip = localhost
 :port = 3000
 :base = http://:ip::port/api
 :email = admin@cubeseed.fake
