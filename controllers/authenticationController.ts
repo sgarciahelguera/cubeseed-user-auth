@@ -38,7 +38,7 @@ export const login = async (req: Request, res: Response) => {
     if (user != null) {
         const isSame = bcrypt.compareSync(password, user.password);
         if (isSame) {
-            let token = jwt.sign({ id: user.id }, process.env.secretKey, {
+            let token = jwt.sign({ id: user.id }, process.env.SECRET_KEY, {
                 expiresIn: 1 * 24 * 60 * 60 * 1000,
             });
             return res.status(200).send({

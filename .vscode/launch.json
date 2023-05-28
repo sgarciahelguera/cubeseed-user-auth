@@ -9,8 +9,11 @@
             "request": "launch",
             "name": "Launch Program",
             "env":{
-                "PORT":"3000", 
-                "secretKey":"superSecret"
+              "PORT":"3000", 
+              "SECRET_KEY":"superSecret",
+              "DB_HOST":"172.17.0.2",
+              "DB_USER":"cubeseed",
+              "DB_PASSWORD":"cubeseedsecret"
             },
             "skipFiles": [
                 "<node_internals>/**"

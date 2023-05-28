@@ -16,7 +16,7 @@ const app: Express = express();
 // as is, the front-end should be reachable at localhost adding one to our port number
 // TODO: the right thing to do would be to put the whole uri for the front-end in the environment
 // with that we could have two containers/hosts/whatever one for the front-end and other for the back-end
-const port: string = process.env.PORT || '8080';
+const port: string = process.env.PORT || '3000';
 const origin: string = 'https://localhost:' + (Number(port)+1).toString()
 var corsOptions = {
     origin: origin

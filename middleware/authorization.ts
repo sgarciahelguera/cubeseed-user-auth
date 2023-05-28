@@ -10,7 +10,7 @@ export const verifyToken = async (req: Request, res: Response, next: NextFunctio
         return res.status(403).json({ message: "No token found" });
     }
 
-    jwt.verify(token, process.env.secretKey, (err, decoded) => {
+    jwt.verify(token, process.env.SECRET_KEY, (err, decoded) => {
         if (err) {
             return res.status(401).json({ message: "Unauthorized." });
         } else if (typeof decoded == 'undefined') {
