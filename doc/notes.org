@@ -1,0 +1,21 @@
+
+* setup new project
+#+begin_src bash
+  npm i --save-dev typescript
+  npx tsc --init
+#+end_src
+
+* typescript compiler in watch mode
+#+begin_src bash
+  npx tsc -w
+#+end_src
+
+* build docker
+#+begin_src bash
+docker build -t cubeseed-user-auth . -f docker/Dockerfile
+#+end_src
+
+* run docker
+#+begin_src bash
+docker run --name cubeseed -it -dp 3000:3000 --env-file docker/environment.txt cubeseed-user-auth
+#+end_src

@@ -1,10 +1,11 @@
-import { Sequelize } from 'sequelize'
+import { Sequelize, Dialect } from 'sequelize'
 
-const dbName = 'api';
-const dbUser = 'cubeseed';
-const dbHost = '172.17.0.2';
-const dbDriver = 'postgres';
-const dbPassword = 'cubeseedsecret';
+const port: string = process.env.PORT;
+const dbName: string = 'api';
+const dbUser: string = process.env.DB_USER;
+const dbHost: string = process.env.DB_HOST;
+const dbDriver: Dialect = 'postgres';
+const dbPassword: string = process.env.DB_PASSWORD;
 
 export const sequelizeConnection = new Sequelize(dbName, dbUser, dbPassword, {
     host: dbHost,

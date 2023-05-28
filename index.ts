@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import {sequelizeConnection} from './databaseConfig';
 import {authRouter} from './routes/authenticationRoutes';
 import {userRouter} from './routes/userRoutes';
-import cors from 'cors';
 import createInitialEntities from './model/InitialSetup';
 
 dotenv.config();
@@ -16,13 +15,8 @@ const app: Express = express();
 // as is, the front-end should be reachable at localhost adding one to our port number
 // TODO: the right thing to do would be to put the whole uri for the front-end in the environment
 // with that we could have two containers/hosts/whatever one for the front-end and other for the back-end
-const port: string = process.env.PORT || '8080';
-const origin: string = 'https://localhost:' + (Number(port)+1).toString()
-var corsOptions = {
-    origin: origin
-}
+const port: string = process.env.PORT || '3000';
 
-app.use(cors(corsOptions))
 app.use(express.json())
 app.use(express.urlencoded({extended: true}));
 
@@ -38,11 +32,10 @@ app.use('/api/auth', authRouter);
 app.use('/api/users', userRouter);
 
 app.get('/', (_req: Request, res: Response) => {
-    res.send('Express + Typescript Server!!');
+    res.send('You are running Cubeseed back-end!');
 });
 
 app.listen(port, () => {
     console.log(`[server]: Server is running at http://localhost:${port}`);
-    console.log(`[server]: Front-end should be running at ${origin}`);
 });
 
